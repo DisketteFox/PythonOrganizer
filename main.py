@@ -1,55 +1,57 @@
 import os
+import tkinter as tk
+from tkinter import filedialog as fd
 
-def menu0():
-    print("Administrador de descargas")
-    print("1. Descargar archivo")
-    print("2. Organizar descargas")
-    print("3. Administrar copias de seguridad")
-    print("4. Salir")
 
-def menu1():
-    print("Introduce la url a descargar")
+def onClick(evento):
+    eliminaCosas()
+    carpeta=""
+    if textoEtRt.get().lower()in ["musica","música"]:
+        carpeta="Music"
+    elif textoEtRt.get().lower() in ["videos","video"]:
+        carpeta="Videos"
+    elif textoEtRt.get().lower() in ["imagenes", "imágenes"]:
+        carpeta = "Pictures"
+    elif textoEtRt.get().lower() in ["documentos", "documento"]:
+        carpeta = "Documents"
+    elif textoEtRt.get().lower() in ["descargas","descarga"]:
+        carpeta="Downloads"
 
-def menu2():
-    print("1. Orden alfabético")
-    print("1. Orden de descarga")
+    busquedaRuta=os.listdir(ruta+carpeta)
+    tk.Label(ventana, text=f"Tus archivos y carpetas de {textoEtRt.get()} son:", font=("Helvetica", 25), fg="#0833a2").pack()
+    for archivo in busquedaRuta:
+        if archivo!="desktop.ini":
+            tk.Label(ventana, text=f"{archivo}", font=("Helvetica", 20)).pack()
 
-def menu3():
-    print("1. Realizar copia de seguridad")
-    print("2. Recuperar archivo corrupto")
+def eliminaCosas():
+    cont=0
+    for cosa in ventana.winfo_children():
+        if cont>1:
+            cosa.destroy()
+        cont+=1
 
-def logic1():
-    menu1()
-    url = input(">> ")
+def borrame(evento):
+    for cosa in ventana.winfo_children():
+        cosa.destroy()
 
-    os.system(f"wget {url}")
+# Obtiene la ruta base del usuario
+usuario=os.getcwd()
+div=[""+usuario.split("\\")[i]+"\\" for i in range(3)]
+ruta=""
+for dato in div:
+    ruta+=dato
 
-def logic2():
-    print("")
 
-def logic3():
-    menu3()
-    opt = int(input(">> "))
+ventana=tk.Tk()
+ventana.geometry("700x700")
+ventana.config(bg="#ffffff",cursor="man")
 
-    if opt == 1:
-        print("")
-    else:
-        print("")
+tk.Label(ventana,text="Introduzca la carpeta que quiera ver",font=("Serif",25)).pack()
+textoEtRt=tk.StringVar()
+entradaRuta=tk.Entry(ventana,textvariable=textoEtRt)
+entradaRuta.pack()
+ventana.bind("<Return>",onClick)
+ventana.bind("<Button-3>",borrame)
 
-def main():
-    loop = True
 
-    while (loop):
-        menu0()
-        opt = int(input(">> "))
-
-        if opt == 1:
-            logic1()
-        elif opt == 2:
-            logic2()
-        elif opt == 3:
-            logic3()
-        else:
-            loop = False
-
-main()
+ventana.mainloop()
