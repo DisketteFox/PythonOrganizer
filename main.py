@@ -1,6 +1,6 @@
 import os
-import tkinter as tk
 import requests
+import tkinter as tk
 from tkinter import filedialog as fd
 from tkinter import messagebox
 
@@ -69,12 +69,9 @@ def onClick(evento):
         if archivo != "desktop.ini":
             tk.Label(ventana, text=f"{archivo}", font=("Helvetica", 20)).pack()
 
-def eliminaCosas():
-    cont=0
-    for cosa in ventana.winfo_children():
-        if cont>1:
-            cosa.destroy()
-        cont+=1
+def eliminaCosas(evento):
+    for cosa in menu.winfo_children():
+        cosa.destroy()
 
 def borrame(evento):
     for cosa in ventana.winfo_children():
@@ -93,13 +90,21 @@ ventana.title("Administrador de descargas")
 ventana.geometry("700x700")
 ventana.config(bg="#ffffff",cursor="pirate")
 
-tk.Label(ventana,text="Introduzca la carpeta que quiera ver",font=("Serif",25)).pack()
+menu=tk.LabelFrame(ventana,text="Menu principal")
+
+organizar=tk.Label(menu,text="Organizar archivos",font=("Serif",30))
+organizar.bind("<Button-1>",eliminaCosas)
+tk.Label(menu,text="Descargar Archivos",font=("Serif",30)).pack()
+
+organizar.pack()
+menu.pack()
+
+'''tk.Label(ventana,text="Introduzca la carpeta que quiera ver",font=("Serif",25)).pack()
 textoEtRt=tk.StringVar()
 entradaRuta=tk.Entry(ventana,textvariable=textoEtRt)
 entradaRuta.pack()
 ventana.bind("<Return>",onClick)
 ventana.bind("<Button-3>",borrame)
-
 
 label=tk.Label(ventana,text="")
 label.pack(pady=10)
@@ -109,7 +114,7 @@ entry.pack(pady=5)
 
 boton=tk.Button(ventana,text="Descargar", command=logic1)
 boton.pack(pady=10)
-menu1()
+menu1()'''
 
 ventana.mainloop()
 
