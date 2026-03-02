@@ -1,43 +1,18 @@
 import os
-import requests
 import tkinter as tk
 from tkinter import filedialog as fd
 from tkinter import messagebox
 
 
-
-def onClick(evento):
-    eliminaCosas()
-    carpeta=""
-    if textoEtRt.get().lower()in ["musica","música"]:
-        carpeta="Music"
-    elif textoEtRt.get().lower() in ["videos","video"]:
-        carpeta="Videos"
-    elif textoEtRt.get().lower() in ["imagenes", "imágenes"]:
-        carpeta = "Pictures"
-    elif textoEtRt.get().lower() in ["documentos", "documento"]:
-        carpeta = "Documents"
-    elif textoEtRt.get().lower() in ["descargas","descarga"]:
-        carpeta="Downloads"
-
 def menu1():
     label.config(text="Introduce la URL a descargar")
-    busquedaRuta=os.listdir(ruta+carpeta)
-    tk.Label(ventana, text=f"Tus archivos y carpetas de {textoEtRt.get()} son:", font=("Helvetica", 25), fg="#0833a2").pack()
-    for archivo in busquedaRuta:
-        if archivo!="desktop.ini":
-            tk.Label(ventana, text=f"{archivo}", font=("Helvetica", 20)).pack()
+def menu2():
+    print("1. Orden alfabético")
+    print("1. Orden de descarga")
 
-def eliminaCosas():
-    cont=0
-    for cosa in ventana.winfo_children():
-        if cont>1:
-            cosa.destroy()
-        cont+=1
-
-def borrame(evento):
-    for cosa in ventana.winfo_children():
-        cosa.destroy()
+def menu3():
+    print("1. Realizar copia de seguridad")
+    print("2. Recuperar archivo corrupto")
 
 def logic1():
     url = entry.get()
@@ -55,6 +30,50 @@ def logic1():
     except Exception as e:
         messagebox.showerror("Error", f"No se puede descargar:\n{e}")
 
+def logic2():
+    print("")
+
+def logic3():
+    menu3()
+    opt = int(input(">> "))
+
+    if opt == 1:
+        print("")
+    else:
+        print("")
+
+def onClick(evento):
+    eliminaCosas()
+    carpeta=""
+    if textoEtRt.get().lower()in ["musica","música"]:
+        carpeta="Music"
+    elif textoEtRt.get().lower() in ["videos","video"]:
+        carpeta="Videos"
+    elif textoEtRt.get().lower() in ["imagenes", "imágenes"]:
+        carpeta = "Pictures"
+    elif textoEtRt.get().lower() in ["documentos", "documento"]:
+        carpeta = "Documents"
+    elif textoEtRt.get().lower() in ["descargas","descarga"]:
+        carpeta="Downloads"
+
+    busquedaRuta = os.listdir(ruta + carpeta)
+    tk.Label(ventana, text=f"Tus archivos y carpetas de {textoEtRt.get()} son:", font=("Helvetica", 25),
+             fg="#0833a2").pack()
+    for archivo in busquedaRuta:
+        if archivo != "desktop.ini":
+            tk.Label(ventana, text=f"{archivo}", font=("Helvetica", 20)).pack()
+
+def eliminaCosas():
+    cont=0
+    for cosa in ventana.winfo_children():
+        if cont>1:
+            cosa.destroy()
+        cont+=1
+
+def borrame(evento):
+    for cosa in ventana.winfo_children():
+        cosa.destroy()
+
 
 # Obtiene la ruta base del usuario
 usuario=os.getcwd()
@@ -63,7 +82,7 @@ ruta=""
 for dato in div:
     ruta+=dato
 
-
+ventana=tk.Tk()
 ventana.title("Administrador de descargas")
 ventana.geometry("700x700")
 ventana.config(bg="#ffffff",cursor="man")
@@ -74,7 +93,6 @@ entradaRuta=tk.Entry(ventana,textvariable=textoEtRt)
 entradaRuta.pack()
 ventana.bind("<Return>",onClick)
 ventana.bind("<Button-3>",borrame)
-
 
 label=tk.Label(ventana,text="")
 label.pack(pady=10)
