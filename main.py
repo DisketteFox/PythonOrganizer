@@ -1,4 +1,8 @@
 import os
+import requests
+import tkinter as tk
+from tkinter import filedialog,messagebox
+
 
 def menu0():
     print("Administrador de descargas")
@@ -8,7 +12,7 @@ def menu0():
     print("4. Salir")
 
 def menu1():
-    print("Introduce la url a descargar")
+    label.config(text="Introduce la URL a descargar")
 
 def menu2():
     print("1. Orden alfabético")
@@ -19,10 +23,36 @@ def menu3():
     print("2. Recuperar archivo corrupto")
 
 def logic1():
-    menu1()
-    url = input(">> ")
+    url = entry.get()
+    if url == "":
+        messagebox.showerror("Error", "Introduce una URL")
+        return
 
-    os.system(f"wget {url}")
+    try:
+        nombre_archivo=url.split("/")[-1]
+        respuesta=requests.get(url)
+        respuesta.raise_for_status()
+        with open(nombre_archivo,"wb") as f:
+            f.write(respuesta.content)
+        messagebox.showinfo("Exito", f"Descarga exitosa en:\n{os.path.join(os.getcwd(),nombre_archivo)}")
+    except Exception as e:
+        messagebox.showerror("Error", f"No se puede descargar:\n{e}")
+
+
+ventana=tk.Tk()
+ventana.title("Administrador de descargas")
+ventana.geometry("400x200")
+
+label=tk.Label(ventana,text="")
+label.pack(pady=10)
+
+entry=tk.Entry(ventana,width=50)
+entry.pack(pady=5)
+
+boton=tk.Button(ventana,text="Descargar", command=logic1)
+boton.pack(pady=10)
+menu1()
+ventana.mainloop()
 
 def logic2():
     print("")
@@ -53,3 +83,9 @@ def main():
             loop = False
 
 main()
+
+'''ventana=tk.Tk()
+ventana.title("felipe mamahuevo")
+ventana.geometry("500x500")
+ventana.mainloop()
+'''
