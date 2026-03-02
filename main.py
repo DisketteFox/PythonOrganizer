@@ -27,14 +27,19 @@ def logic1():
     if url == "":
         messagebox.showerror("Error", "Introduce una URL")
         return
+    carpeta=filedialog.askdirectory(title="Selecciona la carpeta de destino")
+    if not carpeta:
+        messagebox.showwarning("cancelado","No seleccionaste ninguna carpeta")
+        return
 
     try:
         nombre_archivo=url.split("/")[-1]
+        ruta_completa=os.path.join(carpeta,nombre_archivo)
         respuesta=requests.get(url)
         respuesta.raise_for_status()
-        with open(nombre_archivo,"wb") as f:
+        with open(ruta_completa,"wb") as f:
             f.write(respuesta.content)
-        messagebox.showinfo("Exito", f"Descarga exitosa en:\n{os.path.join(os.getcwd(),nombre_archivo)}")
+        messagebox.showinfo("Exito", f"Descarga exitosa en:\n{ruta_completa}")
     except Exception as e:
         messagebox.showerror("Error", f"No se puede descargar:\n{e}")
 
@@ -42,6 +47,7 @@ def logic1():
 ventana=tk.Tk()
 ventana.title("Administrador de descargas")
 ventana.geometry("400x200")
+ventana.config(cursor="pirate")
 
 label=tk.Label(ventana,text="")
 label.pack(pady=10)
@@ -84,8 +90,3 @@ def main():
 
 main()
 
-'''ventana=tk.Tk()
-ventana.title("felipe mamahuevo")
-ventana.geometry("500x500")
-ventana.mainloop()
-'''
