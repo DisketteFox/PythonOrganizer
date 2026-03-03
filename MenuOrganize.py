@@ -49,14 +49,22 @@ class MenuOrganize:
                 shutil.move(src, dst)
         ms.showinfo("Atención", "Se han distribuidos los archivos de manera exitosa")
 
-    def ordenAlfabetico(self):
-        self.borraFrames()
-        busqueda_ruta = os.listdir(self.path)
-        respuesta=tk.LabelFrame(self.root)
-        for archivo in busqueda_ruta:
-            if archivo != "desktop.ini":
-                tk.Label(respuesta, text=f"{archivo}", font=("Arial", 18)).pack(pady=10)
-        respuesta.pack()
+    def order_by_name(self):
+        files = os.listdir(self.path)
+
+        for file in files:
+            if file != "desktop.ini":
+                file_letter = file[0]
+
+                # Create folder if not exists
+                if not os.path.exists(self.path + file_letter):
+                    os.mkdir(self.path + file_letter)
+
+                src = self.path + file
+                dst = self.path + file_letter + "/" + file
+
+                shutil.move(src, dst)
+        ms.showinfo("Atención", "Se han distribuidos los archivos de manera exitosa")
 
     def ordenXFecha(self):
         self.borraFrames()
@@ -84,4 +92,4 @@ class MenuOrganize:
         if option == "Por fecha":
             self.ordenXFecha()
         if option == "Orden alfabético":
-            self.ordenAlfabetico()
+            self.order_by_name()
