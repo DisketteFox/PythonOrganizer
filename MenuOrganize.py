@@ -1,8 +1,6 @@
-from MenuMain import *
-
+import datetime
 import os
 import shutil
-import datetime
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox as ms
@@ -11,24 +9,24 @@ class MenuOrganize:
 
     def __init__(self, path):
         self.root = tk.Tk()
-        self.root.geometry("400x250")
+        self.root.title("Download manager")
 
         self.path = path
 
-        tk.Label(self.root, text="¿Cómo quieres organizar los archivos?", font=("Arial", 16)).pack(pady=20)
-        opciones = [
-            "Por extensión (pdf, png, etc.)",
-            "Por fecha",
-            "Orden alfabético"
+        tk.Label(self.root, text="Organizing method", font=("Arial", 16)).pack(pady=20)
+        options = [
+            "By file extension",
+            "By date",
+            "By name"
         ]
 
-        self.combo = ttk.Combobox(self.root, values=opciones, state="readonly", width=30)
+        self.combo = ttk.Combobox(self.root, values=options, state="readonly", width=30)
         self.combo.pack(pady=10)
 
-        self.button = tk.Button(self.root, text="Aplicar", command=self.order)
+        self.button = tk.Button(self.root, text="Order", command=self.order)
         self.button.pack(pady=10)
 
-        self.button_exit = tk.Button(self.root, text="Volver", font=("Arial", 12), command=self.root.destroy)
+        self.button_exit = tk.Button(self.root, text="Return", font=("Arial", 12), command=self.root.destroy)
         self.button_exit.pack()
 
         self.root.mainloop()
@@ -93,12 +91,12 @@ class MenuOrganize:
     def order(self):
         option = self.combo.get()
         if option == "":
-            ms.showwarning("Atención", "Selecciona una opción")
+            ms.showwarning("Warning", "Select an option")
             return
-        if option == "Por extensión (pdf, png, etc.)":
+        if option == "By file extension":
             self.order_by_extension()
-        if option == "Por fecha":
+        if option == "By date":
             self.order_by_date()
-        if option == "Orden alfabético":
+        if option == "By name":
             self.order_by_name()
-        ms.showinfo("Atención", "Se han distribuidos los archivos de manera exitosa")
+        ms.showinfo("Successful", "Files successfully organized")
