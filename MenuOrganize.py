@@ -9,8 +9,6 @@ class MenuOrganize:
     def divideXtipos(self):
         ruta = "C:\\Users\\Usuario\\Downloads\\"
         busquedaRuta = os.listdir(ruta + self.input_box.get())
-        tk.Label(self.root, text=f"Tus archivos y carpetas de {self.input_box.get()} son:", font=("Helvetica", 25),
-                 fg="#0833a2").pack()
         for archivo in busquedaRuta:
             if archivo != "desktop.ini":
                 tipoArchivo = archivo.split(".")[len(archivo.split(".")) - 1]
@@ -56,7 +54,8 @@ class MenuOrganize:
                 ms.showwarning("Atención", "Selecciona una opción")
                 return
 
-
+            if seleccion=="Por extensión (pdf, png, etc.)":
+                self.divideXtipos()
 
         tk.Button(self.root, text="Aplicar", command=mostrar_seleccion).pack(pady=10)
         self.salir = tk.Button(self.root, text="Volver", font=("Arial", 12), command=self.root.destroy)
