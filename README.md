@@ -1,3 +1,4 @@
+<p align=center><image src="./docs/images/icon.png" height="150" /></p>
 <h1 align="center">Python Downloads Manager</h1>
 
 **Python Downloads Manager** is a program that manages downloads from links, handles backups, and organizes files in a download folder.
