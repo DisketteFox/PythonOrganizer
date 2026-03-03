@@ -1,55 +1,21 @@
 import os
+import tkinter as tk
 
-def menu0():
-    print("Administrador de descargas")
-    print("1. Descargar archivo")
-    print("2. Organizar descargas")
-    print("3. Administrar copias de seguridad")
-    print("4. Salir")
+def onClick(event):
+    print("se ha presionado ",event.widget["text"])
 
-def menu1():
-    print("Introduce la url a descargar")
+ventana=tk.Tk()
+ventana.title("Organizador de archivos")
+ventana.geometry("850x750")
+frame1=tk.Frame(ventana,height=200)
+frame1.config(bg="blue",cursor="pirate")
+frame1.pack(side="left",anchor="nw",fill="x",expand=1)
+etiquetas=[tk.Label(frame1,text=f"texto {i+1} en el frame 1") for i in range(4)]
 
-def menu2():
-    print("1. Orden alfabético")
-    print("1. Orden de descarga")
+for etiqueta in etiquetas:
+    etiqueta.pack()
+    etiqueta.bind("<Button-1>",onClick)
 
-def menu3():
-    print("1. Realizar copia de seguridad")
-    print("2. Recuperar archivo corrupto")
 
-def logic1():
-    menu1()
-    url = input(">> ")
 
-    os.system(f"wget {url}")
-
-def logic2():
-    print("")
-
-def logic3():
-    menu3()
-    opt = int(input(">> "))
-
-    if opt == 1:
-        print("")
-    else:
-        print("")
-
-def main():
-    loop = True
-
-    while (loop):
-        menu0()
-        opt = int(input(">> "))
-
-        if opt == 1:
-            logic1()
-        elif opt == 2:
-            logic2()
-        elif opt == 3:
-            logic3()
-        else:
-            loop = False
-
-main()
+ventana.mainloop()
