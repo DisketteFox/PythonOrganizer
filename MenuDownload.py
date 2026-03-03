@@ -9,10 +9,11 @@ import requests
 
 
 class MenuDownload:
-    def __init__(self):
+    def __init__(self, path):
         self.root = tk.Tk()
-
         self.root.title("Administrador de descargas")
+
+        self.path = path
 
         self.label = tk.Label(self.root, text="Introduce la URL", font=("Arial", 18))
         self.label.pack(padx=20, pady=10)
@@ -32,7 +33,7 @@ class MenuDownload:
     def show_message(self, event):
         print(self.entry.get())
 
-    def downloadWGET(self, event):
+    def download_WGET(self, event):
         subprocess.run(['wget', self.entry.get()])
 
     def download(self, event):
@@ -40,19 +41,17 @@ class MenuDownload:
 
         if url == "":
             mb.showerror("Error", "Introduce una URL")
-            return
+        else:
+            # To use
+            # folder = fd.askdirectory()
+            try:
+                file_name = url.split("/")[-1]
 
-        folder = fd.askdirectory()
+                response = requests.get(url)
+                response.raise_for_status()
 
-        if not folder:
-            mb.showwarning("cancelado", "No seleccionaste ninguna carpeta")
-            return
-        try:
-            nombre_archivo = url.split("/")[-1]
-            respuesta = requests.get(url)
-            respuesta.raise_for_status()
-            with open(nombre_archivo, "wb") as f:
-                f.write(respuesta.content)
-            mb.showinfo("Exito", f"Descarga exitosa en:\n{os.path.join(os.getcwd(), nombre_archivo)}")
-        except Exception as e:
-            mb.showerror("Error", f"No se puede descargar:\n{e}")
+                with open(self.path + file_name, "wb") as f:
+                    f.write(response.content)
+                mb.showinfo("Exit", f"File downloaded in: {os.path.join(os.getcwd(), file_name)}")
+            except Exception as e:
+                mb.showerror("Error", f"Couldn't download: {e}")

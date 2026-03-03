@@ -1,3 +1,5 @@
+from MenuMain import *
+
 import os
 import shutil
 import datetime
@@ -7,12 +9,11 @@ from tkinter import messagebox as ms
 
 class MenuOrganize:
 
-    def __init__(self):
+    def __init__(self, path):
         self.root = tk.Tk()
         self.root.geometry("400x250")
 
-        # self.path = "C:\\Users\\Usuario\\Downloads\\"
-        self.path = "/home/miles/Documents/example/"
+        self.path = path
 
         tk.Label(self.root, text="¿Cómo quieres organizar los archivos?", font=("Arial", 16)).pack(pady=20)
         opciones = [
