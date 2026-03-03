@@ -37,15 +37,17 @@ class MenuOrganize:
         files = os.listdir(self.path)
 
         for file in files:
-            if file != "desktop.ini" and not os.path.isdir(self.path + file):
+            file_path = os.path.join(self.path, file)
+            if file != "desktop.ini" and not os.path.isdir(file_path):
                 file_extension = file.split(".")[len(file.split(".")) - 1]
 
                 # Create folder if not exists
-                if not os.path.exists(self.path + file_extension):
-                    os.mkdir(self.path + file_extension)
+                folder_path = os.path.join(self.path, file_extension)
+                if not os.path.exists(folder_path):
+                    os.mkdir(folder_path)
 
-                src = self.path + file
-                dst = self.path + file_extension + "/" + file
+                src = file_path
+                dst = os.path.join(folder_path, file)
 
                 shutil.move(src, dst)
 
@@ -53,15 +55,17 @@ class MenuOrganize:
         files = os.listdir(self.path)
 
         for file in files:
-            if file != "desktop.ini" and not os.path.isdir(self.path + file):
+            file_path = os.path.join(self.path, file)
+            if file != "desktop.ini" and not os.path.isdir(file_path):
                 file_letter = file[0]
 
                 # Create folder if not exists
-                if not os.path.exists(self.path + file_letter):
-                    os.mkdir(self.path + file_letter)
+                folder_path = os.path.join(self.path, file_letter)
+                if not os.path.exists(folder_path):
+                    os.mkdir(folder_path)
 
-                src = self.path + file
-                dst = self.path + file_letter + "/" + file
+                src = file_path
+                dst = os.path.join(folder_path, file)
 
                 shutil.move(src, dst)
 
@@ -69,18 +73,20 @@ class MenuOrganize:
         files = os.listdir(self.path)
 
         for file in files:
-            if file != "desktop.ini" and not os.path.isdir(self.path + file):
-                unformatted_date = datetime.datetime.fromtimestamp(os.path.getctime(self.path + file)).strftime('%Y/%m/%d')
+            file_path = os.path.join(self.path, file)
+            if file != "desktop.ini" and not os.path.isdir(file_path):
+                unformatted_date = datetime.datetime.fromtimestamp(os.path.getctime(file_path)).strftime('%Y/%m/%d')
                 formatted_date = unformatted_date.split('/')
                 date = ""
                 date += formatted_date[0] + "-" + formatted_date[1] + "-" + formatted_date[2]
 
                 # Create folder if not exists
-                if not os.path.exists(self.path + date):
-                    os.mkdir(self.path + date)
+                folder_path = os.path.join(self.path, date)
+                if not os.path.exists(folder_path):
+                    os.mkdir(folder_path)
 
-                src = self.path + file
-                dst = self.path + date + "/" + file
+                src = file_path
+                dst = os.path.join(folder_path, file)
 
                 shutil.move(src, dst)
 

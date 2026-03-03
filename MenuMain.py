@@ -6,7 +6,7 @@ import tkinter as tk
 class MenuMain:
     def __init__(self):
         self.root = tk.Tk()
-        self.path = "/home/miles/Documents/example/"
+        self.path = fd.askdirectory()
 
         self.root.title("Administrador de descargas")
 

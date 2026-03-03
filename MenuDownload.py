@@ -50,7 +50,7 @@ class MenuDownload:
                 response = requests.get(url)
                 response.raise_for_status()
 
-                with open(self.path + file_name, "wb") as f:
+                with open(os.path.join(self.path, file_name), "wb") as f:
                     f.write(response.content)
                 mb.showinfo("Exit", f"File downloaded in: {os.path.join(os.getcwd(), file_name)}")
             except Exception as e:
