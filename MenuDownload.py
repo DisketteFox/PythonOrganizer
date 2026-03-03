@@ -5,6 +5,9 @@ import tkinter as tk
 from tkinter import messagebox as mb
 from tkinter import filedialog as fd
 
+import requests
+
+
 class MenuDownload:
     def __init__(self):
         self.root = tk.Tk()
@@ -44,14 +47,12 @@ class MenuDownload:
         if not folder:
             mb.showwarning("cancelado", "No seleccionaste ninguna carpeta")
             return
-        else:
-            try:
-                nombre_archivo = url.split("/")[-1]
-                ruta_completa = os.path.join(folder, nombre_archivo)
-
-                url.raise_for_status()
-                with open(ruta_completa, "wb") as f:
-                    f.write(url.content)
-                mb.showinfo("Exito", f"Descarga exitosa en:\n{ruta_completa}")
-            except Exception as e:
-                mb.showerror("Error", f"No se puede descargar:\n{e}")
+        try:
+            nombre_archivo = url.split("/")[-1]
+            respuesta = requests.get(url)
+            respuesta.raise_for_status()
+            with open(nombre_archivo, "wb") as f:
+                f.write(respuesta.content)
+            mb.showinfo("Exito", f"Descarga exitosa en:\n{os.path.join(os.getcwd(), nombre_archivo)}")
+        except Exception as e:
+            mb.showerror("Error", f"No se puede descargar:\n{e}")
