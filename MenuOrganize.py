@@ -7,6 +7,28 @@ from tkinter import messagebox as ms
 
 class MenuOrganize:
 
+    def __init__(self):
+        self.root = tk.Tk()
+        self.root.geometry("400x250")
+
+        tk.Label(self.root, text="¿Cómo quieres organizar los archivos?", font=("Arial", 16)).pack(pady=20)
+        opciones = [
+            "Por extensión (pdf, png, etc.)",
+            "Por fecha",
+            "Orden alfabético"
+        ]
+
+        self.combo = ttk.Combobox(self.root, values=opciones, state="readonly", width=30)
+        self.combo.pack(pady=10)
+
+        self.button = tk.Button(self.root, text="Aplicar", command=self.mostrar_seleccion)
+        self.button.pack(pady=10)
+
+        self.button_exit = tk.Button(self.root, text="Volver", font=("Arial", 12), command=self.root.destroy)
+        self.button_exit.pack()
+
+        self.root.mainloop()
+
     def divideXtipos(self):
         self.borraFrames()
         ruta = "C:\\Users\\Usuario\\Downloads\\"
@@ -56,42 +78,15 @@ class MenuOrganize:
             if hijo.widgetName=="labelframe":
                 hijo.destroy()
 
-    def __init__(self):
-        self.root = tk.Tk()
-        self.root.geometry("400x250")
+    def mostrar_seleccion(self):
+        seleccion = self.combo.get()
+        if seleccion == "":
+            ms.showwarning("Atención", "Selecciona una opción")
+            return
 
-        '''self.root.title("Administrador de descargas")
-
-        self.label = tk.Label(self.root, text="Introduce la carpeta que quieras ver", font=("Arial", 18))
-        self.label.pack(padx=20, pady=20)
-        self.input_box = tk.Entry(self.root)
-        self.input_box.pack(padx=20, pady=20)'''
-
-        tk.Label(self.root, text="¿Cómo quieres organizar los archivos?", font=("Arial", 16)).pack(pady=20)
-        opciones = [
-            "Por extensión (pdf, png, etc.)",
-            "Por fecha",
-            "Orden alfabético"
-        ]
-
-        combo = ttk.Combobox(self.root, values=opciones, state="readonly", width=30)
-        combo.pack(pady=10)
-
-        def mostrar_seleccion():
-            seleccion = combo.get()
-            if seleccion == "":
-                ms.showwarning("Atención", "Selecciona una opción")
-                return
-
-            if seleccion=="Por extensión (pdf, png, etc.)":
-                self.divideXtipos()
-            if seleccion=="Por fecha":
-                self.ordenXFecha()
-            if seleccion=="Orden alfabético":
-                self.ordenAlfabetico()
-
-        tk.Button(self.root, text="Aplicar", command=mostrar_seleccion).pack(pady=10)
-        self.salir = tk.Button(self.root, text="Volver", font=("Arial", 12), command=self.root.destroy)
-        self.salir.pack()
-
-        self.root.mainloop()
+        if seleccion == "Por extensión (pdf, png, etc.)":
+            self.divideXtipos()
+        if seleccion == "Por fecha":
+            self.ordenXFecha()
+        if seleccion == "Orden alfabético":
+            self.ordenAlfabetico()
