@@ -47,13 +47,12 @@ class MenuOrganize:
                 dst = self.path + file_extension + "/" + file
 
                 shutil.move(src, dst)
-        ms.showinfo("Atención", "Se han distribuidos los archivos de manera exitosa")
 
     def order_by_name(self):
         files = os.listdir(self.path)
 
         for file in files:
-            if file != "desktop.ini":
+            if file != "desktop.ini" and not os.path.isdir(self.path + file):
                 file_letter = file[0]
 
                 # Create folder if not exists
@@ -64,23 +63,25 @@ class MenuOrganize:
                 dst = self.path + file_letter + "/" + file
 
                 shutil.move(src, dst)
-        ms.showinfo("Atención", "Se han distribuidos los archivos de manera exitosa")
 
-    def ordenXFecha(self):
-        self.borraFrames()
-        busqueda_ruta = os.listdir(self.path)
-        respuesta=tk.LabelFrame(self.root)
-        # bucle con un if que agrega fecha y el nombre del archivo, medio volado andava creando esto y creativo
-        lista_fechas=[datetime.datetime.fromtimestamp(os.path.getctime(self.path + archivo)).strftime('%Y/%m/%d %H:%M')+" "+archivo for archivo in busqueda_ruta if archivo!="desktop.ini"]
-        lista_fechas.sort(reverse=True)
-        for archivo in lista_fechas:
-            tk.Label(respuesta, text=f"{archivo}", font=("Arial", 18)).pack(pady=10)
-        respuesta.pack()
+    def order_by_date(self):
+        files = os.listdir(self.path)
 
-    def borraFrames(self):
-        for hijo in self.root.winfo_children():
-            if hijo.widgetName=="labelframe":
-                hijo.destroy()
+        for file in files:
+            if file != "desktop.ini" and not os.path.isdir(self.path + file):
+                unformatted_date = datetime.datetime.fromtimestamp(os.path.getctime(self.path + file)).strftime('%Y/%m/%d')
+                formatted_date = unformatted_date.split('/')
+                date = ""
+                date += formatted_date[0] + "-" + formatted_date[1] + "-" + formatted_date[2]
+
+                # Create folder if not exists
+                if not os.path.exists(self.path + date):
+                    os.mkdir(self.path + date)
+
+                src = self.path + file
+                dst = self.path + date + "/" + file
+
+                shutil.move(src, dst)
 
     def order(self):
         option = self.combo.get()
@@ -90,6 +91,7 @@ class MenuOrganize:
         if option == "Por extensión (pdf, png, etc.)":
             self.order_by_extension()
         if option == "Por fecha":
-            self.ordenXFecha()
+            self.order_by_date()
         if option == "Orden alfabético":
             self.order_by_name()
+        ms.showinfo("Atención", "Se han distribuidos los archivos de manera exitosa")
