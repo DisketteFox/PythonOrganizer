@@ -20,8 +20,8 @@ class MenuDownload:
         self.button_download.bind("<Button-1>", self.download)
         self.button_download.pack()
 
-        self.button_download = tk.Button(self.root, text="Return", font=("Arial", 12), command=self.root.destroy)
-        self.button_download.pack()
+        self.button_exit = tk.Button(self.root, text="Return", font=("Arial", 12), command=self.root.destroy)
+        self.button_exit.pack()
 
         self.root.mainloop()
 

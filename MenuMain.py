@@ -1,5 +1,6 @@
 from MenuOrganize import *
 from MenuDownload import *
+from MenuBackups import *
 
 import tkinter as tk
 from tkinter import filedialog as fd
@@ -9,7 +10,7 @@ class MenuMain:
         self.root = tk.Tk()
         self.root.title("Download manager")
 
-        self.path = fd.askdirectory()
+        self.path = fd.askdirectory(parent=self.root)
 
         self.label = tk.Label(self.root, text="Download manager", font=("Arial", 18))
         self.label.pack(padx=20, pady=10)
@@ -19,6 +20,9 @@ class MenuMain:
 
         self.button_organizer = tk.Button(self.root, text="Organize files", font=("Arial", 12), width=14, command=lambda: MenuOrganize(self.path))
         self.button_organizer.pack(padx=10, pady=2)
+
+        self.button_backups = tk.Button(self.root, text="Manage backups", font=("Arial", 12), width=14,command=lambda: MenuBackups(self.path))
+        self.button_backups.pack(padx=10, pady=2)
 
         self.button_exit = tk.Button(self.root, text="Exit", font=("Arial", 12), width=14, command=self.root.destroy)
         self.button_exit.pack(padx=10, pady=2)

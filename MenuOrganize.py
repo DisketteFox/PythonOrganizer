@@ -4,6 +4,8 @@ import shutil
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox as ms
+from unittest.mock import file_spec
+
 
 class MenuOrganize:
 
@@ -23,8 +25,11 @@ class MenuOrganize:
         self.combo = ttk.Combobox(self.root, values=options, state="readonly", width=30)
         self.combo.pack(pady=10)
 
-        self.button = tk.Button(self.root, text="Order", command=self.order)
-        self.button.pack(pady=10)
+        self.button_order = tk.Button(self.root, text="Order", command=self.order)
+        self.button_order.pack(pady=10)
+
+        self.button_duplicates = tk.Button(self.root, text="Remove duplicates", command=self.order)
+        self.button_duplicates.pack(pady=10)
 
         self.button_exit = tk.Button(self.root, text="Return", font=("Arial", 12), command=self.root.destroy)
         self.button_exit.pack()
@@ -100,3 +105,10 @@ class MenuOrganize:
         if option == "By name":
             self.order_by_name()
         ms.showinfo("Successful", "Files successfully organized")
+
+    def remove_duplicates(self):
+        files = os.listdir(self.path)
+        for file in files:
+            split_file = file.split(".")
+            if split_file[-1].isdigit():
+                os.remove(os.path.join(self.path, file))
