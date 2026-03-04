@@ -7,23 +7,24 @@ class MenuDownload:
     def __init__(self, path):
         self.root = tk.Tk()
         self.root.title("Download manager")
-        self.icon = tk.PhotoImage(file=os.path.join(os.path.dirname(__file__), "icon.png"))
-        self.root.iconphoto(False, self.icon)
+
+        self.root.configure(background="white", pady=40)
+        self.root.geometry("600x500")
 
         self.path = path
 
-        self.label = tk.Label(self.root, text="Insert the URL of the file", font=("Arial", 18))
-        self.label.pack(padx=20, pady=10)
+        self.label = tk.Label(self.root, text="Insert URL to download", font=("Arial", 28, "bold"), background="white")
+        self.label.pack(padx=20, pady=20)
 
-        self.entry = tk.Entry(self.root, width=20)
-        self.entry.pack(pady=10)
+        self.entry = tk.Entry(self.root, width=50, relief="solid")
+        self.entry.pack(pady=30)
 
-        self.button_download = tk.Button(self.root, text="Download", font=("Arial", 12))
+        self.button_download = tk.Button(self.root, text="Download", font=("Arial", 16), width=18, bg="white",relief="solid")
         self.button_download.bind("<Button-1>", self.download)
-        self.button_download.pack()
+        self.button_download.pack(pady=5)
 
-        self.button_exit = tk.Button(self.root, text="Return", font=("Arial", 12), command=self.root.destroy)
-        self.button_exit.pack()
+        self.button_exit = tk.Button(self.root, text="Return", font=("Arial", 16), width=18, bg="white",relief="solid", command=self.root.destroy)
+        self.button_exit.pack(pady=5)
 
         self.root.mainloop()
 

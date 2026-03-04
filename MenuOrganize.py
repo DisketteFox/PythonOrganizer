@@ -11,29 +11,32 @@ class MenuOrganize:
     def __init__(self, path):
         self.root = tk.Tk()
         self.root.title("Download manager")
-        self.icon = tk.PhotoImage(file=os.path.join(os.path.dirname(__file__), "icon.png"))
-        self.root.iconphoto(False, self.icon)
+
+        self.root.configure(background="white", pady=40)
+        self.root.geometry("600x500")
 
         self.path = path
 
-        tk.Label(self.root, text="Organizing method", font=("Arial", 16)).pack(pady=20)
+        self.label = tk.Label(self.root, text="Organize files", font=("Arial", 28, "bold"), background="white")
+        self.label.pack(pady=20)
+
         options = [
             "By file extension",
             "By date",
             "By name"
         ]
 
-        self.combo = ttk.Combobox(self.root, values=options, state="readonly", width=30)
+        self.combo = ttk.Combobox(self.root, values=options, state="readonly", font=("Arial", 16), width=19)
         self.combo.pack(pady=10)
 
-        self.button_order = tk.Button(self.root, text="Order", command=self.order)
-        self.button_order.pack(pady=10)
+        self.button_order = tk.Button(self.root, text="Order", font=("Arial", 16), width=18, bg="white", relief="solid", command=self.order)
+        self.button_order.pack(pady=5)
 
-        self.button_duplicates = tk.Button(self.root, text="Remove duplicates", command=self.order)
-        self.button_duplicates.pack(pady=10)
+        self.button_duplicates = tk.Button(self.root, text="Remove duplicates", font=("Arial", 16), width=18, bg="white", relief="solid", command=self.order)
+        self.button_duplicates.pack(pady=5)
 
-        self.button_exit = tk.Button(self.root, text="Return", font=("Arial", 12), command=self.root.destroy)
-        self.button_exit.pack()
+        self.button_exit = tk.Button(self.root, text="Return", font=("Arial", 16), width=18, bg="white", relief="solid", command=self.root.destroy)
+        self.button_exit.pack(pady=5)
 
         self.root.mainloop()
 

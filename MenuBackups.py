@@ -9,24 +9,25 @@ class MenuBackups:
     def __init__(self, path):
         self.root = tk.Tk()
         self.root.title("Download manager")
-        self.icon = tk.PhotoImage(file=os.path.join(os.path.dirname(__file__), "icon.png"))
-        self.root.iconphoto(False, self.icon)
+
+        self.root.configure(background="white", pady=40)
+        self.root.geometry("600x500")
 
         self.path = path
 
-        self.label = tk.Label(self.root, text="Manage your backups", font=("Arial", 18))
+        self.label = tk.Label(self.root, text="Manage your backups", font=("Arial", 28, "bold"), background="white")
         self.label.pack(padx=20, pady=10)
 
-        self.button_backup = tk.Button(self.root, text="Create backup", font=("Arial", 12), width=12)
+        self.button_backup = tk.Button(self.root, text="Create backup ⮺", font=("Arial", 16), width=18, bg="white", relief="solid")
         self.button_backup.bind("<Button-1>", self.backup)
-        self.button_backup.pack()
+        self.button_backup.pack(pady=5)
 
-        self.button_restore = tk.Button(self.root, text="Restore backup", font=("Arial", 12), width=12)
+        self.button_restore = tk.Button(self.root, text="Restore backup ⮺", font=("Arial", 16), width=18, bg="white", relief="solid")
         self.button_restore.bind("<Button-1>", self.restore)
-        self.button_restore.pack()
+        self.button_restore.pack(pady=5)
 
-        self.button_exit = tk.Button(self.root, text="Return", font=("Arial", 12), width=12, command=self.root.destroy)
-        self.button_exit.pack()
+        self.button_exit = tk.Button(self.root, text="Return", font=("Arial", 16), width=18, bg="white", relief="solid", command=self.root.destroy)
+        self.button_exit.pack(pady=5)
 
         self.root.mainloop()
 
