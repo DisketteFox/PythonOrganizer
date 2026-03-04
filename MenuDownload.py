@@ -7,6 +7,8 @@ class MenuDownload:
     def __init__(self, path):
         self.root = tk.Tk()
         self.root.title("Download manager")
+        self.icon = tk.PhotoImage(file=os.path.join(os.path.dirname(__file__), "icon.png"))
+        self.root.iconphoto(False, self.icon)
 
         self.path = path
 
