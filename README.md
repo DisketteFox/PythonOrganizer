@@ -18,6 +18,7 @@
 <img src="./docs/images/screenshot3.png" height="320" style="margin-right: 20px;">
 <img src="./docs/images/screenshot4.png" height="320">
 </div>
+
 ## License
 
 Licensed under the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html) license.
