@@ -11,7 +11,13 @@
 - Delete duplicates
 
 ## Screenshots
+<div display="flex" align=center>
+<img src="./docs/images/screenshot1.png" height="320" style="margin-right: 20px;">
+<img src="./docs/images/screenshot2.png" height="320">
 
+<img src="./docs/images/screenshot3.png" height="320" style="margin-right: 20px;">
+<img src="./docs/images/screenshot4.png" height="320">
+</div>
 ## License
 
 Licensed under the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html) license.
